@@ -1,0 +1,20 @@
+<app-nav-bar></app-nav-bar>
+<div class="container w-full mx-auto mt-16">
+    <div class="flex flex-col justify-center w-full h-full">
+        <img class="w-40 mx-auto shadow-lg h-28" src="../../assets/imagenes/red_movil_logo.png" alt="red movil logo"/>
+        <p class="mt-6 text-lg tracking-wider text-center text-blue-brand-500">Bienvenido, <span class="font-semibold text-red-brand-500">{{username | uppercase}}</span></p>
+        <p class="mt-4 text-sm font-medium tracking-wide text-center text-gray-500">Selecciona la marca que deseas administrar</p>
+        <div class="grid gap-12 mx-auto mt-12 sm:mx-40 lg:mx-4 lg:grid-cols-2 md:grid-cols-1 xl:mx-28">
+            <a class="w-auto" (click)="btnSelect(true)">
+                <div class="flex items-center transition duration-300 border border-gray-400 rounded-lg opacity-25 p-14 xl:p-20 lg:p-14 hover:opacity-100 hover:border-blue-brand-500">
+                    <img class="mx-auto" src="../../assets/imagenes/logo_petpet.png" alt="petpet logo" />
+                </div>
+            </a>
+            <a class="w-auto" (click)="btnSelect(false)">
+                <div class="flex items-center transition duration-300 border border-gray-400 rounded-lg opacity-25 p-14 xl:p-20 lg:p-14 hover:opacity-100 hover:border-blue-brand-500">
+                    <img class="mx-auto" src="../../assets/imagenes/logo_abc.png" alt="abc logo" />
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

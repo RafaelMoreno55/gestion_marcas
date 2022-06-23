@@ -1,0 +1,55 @@
+<div class="flex w-full"> 
+    <div class="flex flex-col items-center justify-center w-full h-screen lg:w-5/6">
+        
+            <img class="w-40 mx-auto -mt-28 md:mt-0" src="../assets/imagenes/red_movil_logo.png"/>
+            <p class="mt-5 text-center text-blue-brand-500">Ingresa tus datos para <span class="font-medium">iniciar sesión</span></p>
+            <div class="p-6 mx-12 mt-8 border rounded-lg shadow-lg md:mx-auto md:w-8/12">
+                <form [formGroup]="formLogin" (ngSubmit)= "handleLogin()">
+                    <div class="pb-2 border-b">
+                        <p class="w-24 pb-1 text-xs font-medium text-center border-b-2 md:text-sm text-blue-brand-500 border-red-brand-500">Iniciar sesión</p>
+                    </div>
+                    <div class="flex mt-8">
+                        <div class="z-10 flex items-center justify-center w-auto pl-2 text-center pointer-events-none ">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.1889 12.4936C13.8521 11.6957 13.3632 10.9709 12.7497 10.3596C12.1379 9.74661 11.4133 9.25785 10.6157 8.92034C10.6086 8.91677 10.6014 8.91499 10.5943 8.91141C11.7068 8.10784 12.43 6.79891 12.43 5.32213C12.43 2.8757 10.4479 0.893555 8.00144 0.893555C5.55501 0.893555 3.57287 2.8757 3.57287 5.32213C3.57287 6.79891 4.29608 8.10784 5.40858 8.9132C5.40144 8.91677 5.3943 8.91856 5.38715 8.92213C4.58715 9.25963 3.8693 9.74356 3.25323 10.3614C2.64021 10.9731 2.15145 11.6978 1.81394 12.4953C1.48237 13.2762 1.30355 14.1133 1.28715 14.9614C1.28668 14.9805 1.29002 14.9994 1.29699 15.0172C1.30395 15.0349 1.3144 15.0511 1.32771 15.0647C1.34103 15.0784 1.35694 15.0892 1.3745 15.0966C1.39207 15.104 1.41095 15.1078 1.43001 15.1078H2.50144C2.58001 15.1078 2.64251 15.0453 2.6443 14.9686C2.68001 13.59 3.23358 12.2989 4.21215 11.3203C5.22465 10.3078 6.5693 9.7507 8.00144 9.7507C9.43358 9.7507 10.7782 10.3078 11.7907 11.3203C12.7693 12.2989 13.3229 13.59 13.3586 14.9686C13.3604 15.0471 13.4229 15.1078 13.5014 15.1078H14.5729C14.5919 15.1078 14.6108 15.104 14.6284 15.0966C14.6459 15.0892 14.6619 15.0784 14.6752 15.0647C14.6885 15.0511 14.6989 15.0349 14.7059 15.0172C14.7129 14.9994 14.7162 14.9805 14.7157 14.9614C14.6979 14.1078 14.5211 13.2775 14.1889 12.4936V12.4936ZM8.00144 8.39356C7.1818 8.39356 6.41037 8.07391 5.83001 7.49356C5.24965 6.9132 4.93001 6.14177 4.93001 5.32213C4.93001 4.50248 5.24965 3.73106 5.83001 3.1507C6.41037 2.57034 7.1818 2.2507 8.00144 2.2507C8.82108 2.2507 9.59251 2.57034 10.1729 3.1507C10.7532 3.73106 11.0729 4.50248 11.0729 5.32213C11.0729 6.14177 10.7532 6.9132 10.1729 7.49356C9.59251 8.07391 8.82108 8.39356 8.00144 8.39356Z" fill="#162463"/>
+                            </svg>
+                        </div>
+                        <input type="email" autocomplete="off" class="text-blue-brand-500 -ml-6 pl-7 border focus:outline-none focus:ring-2 focus:ring-blue-brand-700 focus:border-transparent text-xs md:text-sm w-full rounded-md p-6 py-1.5" placeholder="correo" formControlName="email" />                       
+                    </div>
+                    <div *ngIf="email?.invalid && email?.dirty" class="error">
+                        <p>Email invalid</p>
+                    </div>
+                    <div class="flex mt-4">
+                        <div class="z-10 flex items-center justify-center w-auto pl-2 text-center pointer-events-none">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.7163 7.14802H12.502V3.14802C12.502 1.88552 11.4788 0.862305 10.2163 0.862305H5.78774C4.52524 0.862305 3.50202 1.88552 3.50202 3.14802V7.14802H2.28774C1.97167 7.14802 1.71631 7.40338 1.71631 7.71945V14.5766C1.71631 14.8927 1.97167 15.148 2.28774 15.148H13.7163C14.0324 15.148 14.2877 14.8927 14.2877 14.5766V7.71945C14.2877 7.40338 14.0324 7.14802 13.7163 7.14802ZM4.78774 3.14802C4.78774 2.59623 5.23595 2.14802 5.78774 2.14802H10.2163C10.7681 2.14802 11.2163 2.59623 11.2163 3.14802V7.14802H4.78774V3.14802ZM13.002 13.8623H3.00202V8.43373H13.002V13.8623ZM7.50202 11.3802V12.3266C7.50202 12.4052 7.56631 12.4694 7.64488 12.4694H8.35917C8.43774 12.4694 8.50202 12.4052 8.50202 12.3266V11.3802C8.64943 11.2743 8.75945 11.1245 8.81626 10.9521C8.87306 10.7798 8.87372 10.5939 8.81813 10.4211C8.76254 10.2484 8.65358 10.0977 8.50692 9.99087C8.36027 9.884 8.18349 9.82642 8.00202 9.82642C7.82056 9.82642 7.64378 9.884 7.49713 9.99087C7.35047 10.0977 7.24151 10.2484 7.18592 10.4211C7.13033 10.5939 7.13099 10.7798 7.18779 10.9521C7.2446 11.1245 7.35462 11.2743 7.50202 11.3802V11.3802Z" fill="#162463"/>
+                            </svg>
+                        </div>
+                        <input type="password" autocomplete="off" class="text-blue-brand-500 -ml-6 pl-7 border focus:outline-none focus:ring-2 focus:ring-blue-brand-500 focus:border-transparent md:text-sm text-xs w-full rounded-md p-6 py-1.5" placeholder="contraseña" formControlName="password" />
+                    </div>
+                    <div *ngIf="password?.invalid && password?.touched" class="error">
+                        <p>Password invalid</p>
+                    </div>
+                    <div class="mt-4">
+                        <div class="grid items-center grid-cols-2">
+                            <div class="w-full">
+                              <input type="checkbox" class="rounded-sm focus:ring-0 focus:ring-transparent border-blue-brand-500 text-blue-brand-500"/> 
+                              <label class="mt-4 ml-1 text-xs md:text-sm text-blue-brand-500">Recordar datos</label>
+                            </div>
+                            <div class="w-full text-center">
+                                <a routerLink="/recovery-password" class="float-right mt-1 text-xs md:text-sm hover:underline text-blue-brand-500">¿Olvidaste tu contraseña?</a>
+                            </div>
+                        </div>
+                    </div>  
+                    <button class="w-full py-2 mx-auto mt-6 text-sm font-normal text-white border rounded-lg bg-red-brand-500" [disabled]="formLogin.invalid">Ingresar</button>
+                    <div *ngIf="error !== undefined"class="error">
+                        <p>{{error}}</p>
+                    </div>
+                </form>
+            </div>
+            <p class="text-xs tracking-wide text-center text-gray-500 md:mt-24 md:-mb-10">Copyright &copy 2021 Producido por Tu Red Móvil.</p>
+    </div>
+    <div class="hidden h-screen md:block md:w-3/6 lg:w-4/6">
+        <img  class="object-fill w-full h-screen" src="../assets/imagenes/join_network.png" alt="network_mobile"/>
+    </div>
+  </div>   

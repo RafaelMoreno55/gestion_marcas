@@ -1,0 +1,592 @@
+<app-nav-bar></app-nav-bar>
+<div class="container flex justify-center mx-auto mt-12">
+    <div class="flex flex-col w-full">
+        <!-- contiene la flecha izquierda, el título y el botón editar -->
+        <div class="flex w-9/12 mx-auto">
+            <div class="flex justify-start flex-initial w-full flex-items-center">
+                <a routerLink="/content-management" class="flex flex-initial flex-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </a>
+                <p class="inline-flex mt-0.5 text-base font-semibold text-black">Configuración de contenido</p>
+            
+            </div>
+            <!--<div class="flex justify-end flex-initial w-full flex-items-center">
+                <button id="edit-list-content" class="flex flex-row items-center justify-center w-24 h-10 transition duration-200 border border-transparent rounded-md bg-blue-brand-500 hover:bg-red-brand-500 hover:border-gray-brand-200">
+                    <div class="ml-5 mr-2">
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.13083 13.5767C0.932129 13.5764 0.74271 13.4926 0.608787 13.3458C0.472394 13.2002 0.40462 13.0033 0.422495 12.8046L0.596037 10.8964L8.61295 2.8823L11.1183 5.38696L3.10354 13.4003L1.19529 13.5739C1.17333 13.576 1.15137 13.5767 1.13083 13.5767ZM11.6184 4.88617L9.11375 2.38151L10.6161 0.879131C10.749 0.746123 10.9293 0.671387 11.1173 0.671387C11.3053 0.671387 11.4856 0.746123 11.6184 0.879131L13.1208 2.38151C13.2538 2.51437 13.3285 2.69465 13.3285 2.88265C13.3285 3.07065 13.2538 3.25094 13.1208 3.3838L11.6191 4.88546L11.6184 4.88617Z" fill="white"/>
+                        </svg>
+                    </div>
+                    <span class="mr-5 text-base font-medium text-white">Editar</span>
+                </button>
+            </div>-->
+        </div>
+         <!-- contiene el botón de cancelar y guardar -->
+         <div class="flex flex-row justify-end gap-x-3 w-9/12 mx-auto">
+            <button id="cancel-list-content" class="hidden w-24 h-10 transition duration-200 border rounded-md bg-gray-brand-200 hover:bg-gray-400 hover:border-transparent group"> 
+                <span class="text-base font-medium text-gray-brand-800 group-hover:text-white">Cancelar</span> 
+            </button>
+            <button id="save-list-content" class="hidden w-24 h-10 transition duration-200 border border-transparent rounded-md bg-blue-brand-500 hover:bg-red-brand-500 hover:border-gray-brand-200"> 
+                <span class="text-base font-medium text-white">Guardar</span> 
+            </button>
+        </div>
+        <!-- Título de la lista actual -->
+        <div class="flex flex-col w-9/12 mx-auto py-2 mt-6">
+            <p class="text-xs leading-none uppercase text-gray-brand-300">Lista</p>
+            <p id="title-current-list" class="text-base font-semibold leading-none tracking-wide text-gray-brand-700"></p>
+        </div>
+        <hr class="w-9/12 mx-auto my-3">
+        <!-- conjunto de botones selectores -->
+        <form action="" class="action-edit-button">
+            <div class="flex flex-row w-9/12 mx-auto gap-x-8">
+                <!--botón selector para categorías -->
+                <div>
+                    <button id="btn-select-categ-list" type="button" class="flex flex-row justify-between w-28 px-3 items-center h-10 text-left text-xs font-medium tracking-wide text-gray-brand-300 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-1 hover:border-blue-brand-500 hover:text-blue-brand-500">
+                        Categorías
+                        <svg class="mt-1" width="8" height="4" viewBox="0 0 8 4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.00012 3.85654L7.00512 0.851543L6.29862 0.144043L4.00012 2.44404L1.70212 0.144043L0.995117 0.851043L4.00012 3.85654Z"/>
+                        </svg>
+                    </button>
+                    <!-- todas las categorías de la lista -->
+                    <div id="view-categ-list" class="hidden">
+                        <div class="relative">
+                            <ul class="absolute max-h-40 w-44 mt-1 overflow-auto tracking-wide bg-white border border-gray-brand-200 rounded-md shadow-lg focus:outline-none z-10 cursor-pointer">
+                                <li class="text-sm font-medium text-gray-brand-300 py-1 pl-3 hover:text-blue-brand-500 hover:bg-blue-100 chosen-category">Comida Alemana</li>
+                                <li class="text-sm font-medium text-gray-brand-300 py-1 pl-3 hover:text-blue-brand-500 hover:bg-blue-100 chosen-category">Comida Española</li>
+                                <li class="text-sm font-medium text-gray-brand-300 py-1 pl-3 hover:text-blue-brand-500 hover:bg-blue-100 chosen-category">Comida Mexicana</li>
+                                <li class="text-sm font-medium text-gray-brand-300 py-1 pl-3 hover:text-blue-brand-500 hover:bg-blue-100 chosen-category">Comida Italiana</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                 <!--botón selector para subcategorías -->
+                 <div>
+                     <button id="btn-select-subcateg-list" type="button" class="flex flex-row justify-between w-32 px-3 items-center h-10 text-left text-xs font-medium tracking-wide text-gray-brand-300 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-1 hover:border-blue-brand-500 hover:text-blue-brand-500">
+                        Subcategorías
+                        <svg class="mt-1" width="8" height="4" viewBox="0 0 8 4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.00012 3.85654L7.00512 0.851543L6.29862 0.144043L4.00012 2.44404L1.70212 0.144043L0.995117 0.851043L4.00012 3.85654Z"/>
+                        </svg>
+                    </button>
+                     <!-- todas las subcategorías de la lista -->
+                     <div id="view-subcateg-list" class="hidden">
+                        <div class="relative">
+                            <ul class="absolute max-h-40 w-44 mt-1 overflow-auto tracking-wide bg-white border border-gray-brand-200 rounded-md shadow-lg focus:outline-none z-10 cursor-pointer">
+                                <li class="text-sm font-medium text-gray-brand-300 py-1 pl-3 hover:text-blue-brand-500 hover:bg-blue-100 chosen-subcategory">Salchichas</li>
+                                <li class="text-sm font-medium text-gray-brand-300 py-1 pl-3 hover:text-blue-brand-500 hover:bg-blue-100 chosen-subcategory">Cocina tradicional</li>
+                            </ul>
+                        </div>
+                    </div>
+                 </div>
+                <!--botón selector para fecha -->
+                <div>
+                    <button id="btn-select-date-list" type="button" class="flex flex-row justify-between w-20 px-3 items-center h-10 text-left text-xs font-medium tracking-wide text-gray-brand-300 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-1 hover:border-blue-brand-500 hover:text-blue-brand-500">
+                        Fecha
+                        <svg class="mt-1" width="8" height="4" viewBox="0 0 8 4" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.00012 3.85654L7.00512 0.851543L6.29862 0.144043L4.00012 2.44404L1.70212 0.144043L0.995117 0.851043L4.00012 3.85654Z"/>
+                        </svg>
+                    </button>
+                     <!-- filtrar por fecha todas las categorías y subcategorías de la lista -->
+                     <div id="view-date-list" class="hidden">
+                        <div class="relative">
+                            <ul class="absolute max-h-40 w-44 mt-1 overflow-auto tracking-wide bg-white border border-gray-brand-200 rounded-md shadow-lg focus:outline-none z-10 cursor-pointer">
+                                <li class="text-sm font-medium text-gray-brand-300 py-1 pl-3 hover:text-blue-brand-500 hover:bg-blue-100 chosen-date">Recientes</li>
+                                <li class="text-sm font-medium text-gray-brand-300 py-1 pl-3 hover:text-blue-brand-500 hover:bg-blue-100 chosen-date">Hace 1 semana</li>
+                                <li class="text-sm font-medium text-gray-brand-300 py-1 pl-3 hover:text-blue-brand-500 hover:bg-blue-100 chosen-date">Hace 1 mes</li>
+                                <li class="text-sm font-medium text-gray-brand-300 py-1 pl-3 hover:text-blue-brand-500 hover:bg-blue-100 chosen-date">Hace 1 año</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-row items-center justify-center w-24 h-10 transition duration-200 border border-transparent rounded-md bg-blue-brand-500 hover:bg-red-brand-500 hover:border-gray-brand-200">
+                    <button id="btnAddVideos" class="text-white" (click)="btnAddVideos()">Subir Videos </button>
+                </div>
+            </div>
+             <!-- buscador con botón -->
+             <div class="flex flex-row justify-end items-center w-9/12 mx-auto gap-x-2 mt-2">
+                <input class="focus:ring-transparent ring-0 focus:border-blue-brand-500 focus:outline-none focus:appearance-none text-blue-brand-500 pl-3 text-sm font-semibold border border-gray-200 rounded-md" type="text" placeholder="Buscar por nombre..." autocomplete="off" #valueInput [formControl]="search">
+                <button class="w-24 h-10 transition duration-200 border rounded-md bg-gray-brand-200 hover:bg-gray-400 hover:border-transparent group" (click)="onClear()">
+                    <span class="text-base font-medium text-gray-brand-800 group-hover:text-white">Limpiar</span>
+                </button>
+            </div>
+        </form>
+        <!-- Tarjeta de todos los videos -->
+        <h1 class="action-edit-button w-9/12 mx-auto mt-7 text-base font-semibold tracking-wide text-gray-brand-700">Todos los videos</h1>
+        <div id="card-list-content" class="grid grid-cols-1 w-9/12 mx-auto mt-4 gap-x-7 gap-y-9 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <!-- primera tarjeta -->
+            <ng-container *ngIf="isThereVideo; else showEmpty">
+                <ng-container *ngFor="let video of auxvideos">
+                    <div class="flex flex-col items-center justify-start border shadow h-80 rounded-md border-gray-brand-200 hover:border-blue-brand-500">
+                        <div class="flex flex-col relative items-center justify-center rounded-t-md">
+                            <!--<div class="absolute top-0 -right-0 p-1">
+                                <svg class="" width="5" height="17" viewBox="0 0 5 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="2.02381" cy="2.02381" r="2.02381" fill="#BABABA"/>
+                                    <circle cx="2.02381" cy="8.49988" r="2.02381" fill="#BABABA"/>
+                                    <circle cx="2.02381" cy="14.9762" r="2.02381" fill="#BABABA"/>
+                                </svg>
+                            </div>-->
+                            <img src="{{ video.picture }}" style="width: 150px;" />
+                            <!-- <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g opacity="0.5">
+                                <path d="M31.6667 5H8.33333C6.49238 5 5 6.49238 5 8.33333V31.6667C5 33.5076 6.49238 35 8.33333 35H31.6667C33.5076 35 35 33.5076 35 31.6667V8.33333C35 6.49238 33.5076 5 31.6667 5Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.1665 16.6666C15.5472 16.6666 16.6665 15.5473 16.6665 14.1666C16.6665 12.7859 15.5472 11.6666 14.1665 11.6666C12.7858 11.6666 11.6665 12.7859 11.6665 14.1666C11.6665 15.5473 12.7858 16.6666 14.1665 16.6666Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M35.0002 25L26.6668 16.6666L8.3335 35" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </g>
+                            </svg> -->
+                        </div>
+                        <div class="px-2 py-2 text-xs font-bold text-gray-brand-700">
+                            <p class="text-blue-brand-500 text-sm mb-2">{{video.name}}</p>
+                            <p class="mb-2">Subido por: <span class="text-gray-brand-300">{{video.author}}</span></p>
+                            <p class="mb-2">Categoría: <span class="text-gray-brand-300">Comida Alemana</span></p>
+                            <p class="mb-2">Subcategoría: <span class="text-gray-brand-300">Salchichas</span></p>
+                            <p class="mb-2">ID: <span class="text-gray-brand-300">{{video.id}}</span></p>
+                            <p class="mb-2">Fecha: <span class="text-gray-brand-300">{{ video.date |date: 'dd | MM | YYYY'}}</span></p>
+                            <p class="">Enlace: <a href="{{video.link}}" target="_blank" class="text-red-brand-500">{{video.link}}</a></p>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+            <ng-template #showEmpty>
+                <p class="w-9/12 mx-auto mt-4 text-base font-bold tracking-wide text-red-brand-500">no se encontró videos</p>
+            </ng-template>
+            <!-- Nueva tarjeta de categoría agregado a la lista -->
+            <div id="new-card-video-category" class="hidden flex-col items-center justify-start border shadow h-80 rounded-md border-gray-brand-200 hover:border-blue-brand-500">
+                <div class="flex flex-col relative items-center justify-center h-40 rounded-t-md">
+                    <svg class="absolute top-3 -right-20" width="5" height="17" viewBox="0 0 5 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="2.02381" cy="2.02381" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="8.49988" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="14.9762" r="2.02381" fill="#BABABA"/>
+                    </svg>
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.5">
+                        <path d="M31.6667 5H8.33333C6.49238 5 5 6.49238 5 8.33333V31.6667C5 33.5076 6.49238 35 8.33333 35H31.6667C33.5076 35 35 33.5076 35 31.6667V8.33333C35 6.49238 33.5076 5 31.6667 5Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.1665 16.6666C15.5472 16.6666 16.6665 15.5473 16.6665 14.1666C16.6665 12.7859 15.5472 11.6666 14.1665 11.6666C12.7858 11.6666 11.6665 12.7859 11.6665 14.1666C11.6665 15.5473 12.7858 16.6666 14.1665 16.6666Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M35.0002 25L26.6668 16.6666L8.3335 35" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="px-2 py-2 text-xs font-bold text-gray-brand-700">
+                    <p id="new-title-card-category" class="text-blue-brand-500 text-sm mb-2"></p>
+                    <p class="mb-2">Subido por: <span class="text-gray-brand-300">Sergio Andrade</span></p>
+                    <p class="mb-2">Categoría: <span id="new-category-card-category" class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">Subcategoría: <span class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">ID: <span id="new-id-card-category" class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">Fecha: <span class="text-gray-brand-300">01 | 13 | 2021</span></p>
+                    <p class="">Enlace: <span id="new-link-card-category" class="text-red-brand-500"></span></p>
+                </div>
+            </div>
+            <!-- Nueva tarjeta de subcategoría agregado a la lista -->
+            <div id="new-card-video-subcategory" class="hidden flex-col items-center justify-start border shadow h-80 rounded-md border-gray-brand-200 hover:border-blue-brand-500">
+                <div class="flex flex-col relative items-center justify-center h-40 rounded-t-md">
+                    <svg class="absolute top-3 -right-20" width="5" height="17" viewBox="0 0 5 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="2.02381" cy="2.02381" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="8.49988" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="14.9762" r="2.02381" fill="#BABABA"/>
+                    </svg>
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.5">
+                        <path d="M31.6667 5H8.33333C6.49238 5 5 6.49238 5 8.33333V31.6667C5 33.5076 6.49238 35 8.33333 35H31.6667C33.5076 35 35 33.5076 35 31.6667V8.33333C35 6.49238 33.5076 5 31.6667 5Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.1665 16.6666C15.5472 16.6666 16.6665 15.5473 16.6665 14.1666C16.6665 12.7859 15.5472 11.6666 14.1665 11.6666C12.7858 11.6666 11.6665 12.7859 11.6665 14.1666C11.6665 15.5473 12.7858 16.6666 14.1665 16.6666Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M35.0002 25L26.6668 16.6666L8.3335 35" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="px-2 py-2 text-xs font-bold text-gray-brand-700">
+                    <p id="new-title-card-subcategory" class="text-blue-brand-500 text-sm mb-2"></p>
+                    <p class="mb-2">Subido por: <span class="text-gray-brand-300">Sergio Andrade</span></p>
+                    <p class="mb-2">Categoría: <span id="new-category-card-subcategory" class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">Subcategoría: <span id="new-subcategory-card-subcategory" class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">ID: <span id="new-id-card-subcategory" class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">Fecha: <span class="text-gray-brand-300">01 | 13 | 2021</span></p>
+                    <p class="">Enlace: <span id="new-link-card-subcategory" class="text-red-brand-500"></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Filtrar tarjetas de video por categoría  -->
+        <h1 id="chosen-title-categ" class="hidden w-9/12 mx-auto mt-7 text-base font-semibold tracking-wide text-gray-brand-700"></h1>
+        <div id="card-filter-category" class="hidden grid-cols-1 w-9/12 mx-auto mt-4 gap-x-7 gap-y-9 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <!-- Resultado del filtro por categoría "Comida Alemana" -->
+            <div id="filter-category" class="hidden flex-col items-center justify-start border shadow h-80 rounded-md border-gray-brand-200 hover:border-blue-brand-500">
+                <div class="flex flex-col relative items-center justify-center h-40 rounded-t-md">
+                    <svg class="absolute top-3 -right-20" width="5" height="17" viewBox="0 0 5 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="2.02381" cy="2.02381" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="8.49988" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="14.9762" r="2.02381" fill="#BABABA"/>
+                    </svg>
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.5">
+                        <path d="M31.6667 5H8.33333C6.49238 5 5 6.49238 5 8.33333V31.6667C5 33.5076 6.49238 35 8.33333 35H31.6667C33.5076 35 35 33.5076 35 31.6667V8.33333C35 6.49238 33.5076 5 31.6667 5Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.1665 16.6666C15.5472 16.6666 16.6665 15.5473 16.6665 14.1666C16.6665 12.7859 15.5472 11.6666 14.1665 11.6666C12.7858 11.6666 11.6665 12.7859 11.6665 14.1666C11.6665 15.5473 12.7858 16.6666 14.1665 16.6666Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M35.0002 25L26.6668 16.6666L8.3335 35" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="px-2 py-2 text-xs font-bold text-gray-brand-700">
+                    <p class="text-blue-brand-500 text-sm mb-2">Aprendiendo a preparar mole</p>
+                    <p class="mb-2">Subido por: <span class="text-gray-brand-300">Sergio Andrade</span></p>
+                    <p class="mb-2">Categoría: <span class="text-gray-brand-300">Comida Mexicana</span></p>
+                    <p class="mb-2">Subcategoría: <span class="text-gray-brand-300">mole</span></p>
+                    <p class="mb-2">ID: <span class="text-gray-brand-300">00129333</span></p>
+                    <p class="mb-2">Fecha: <span class="text-gray-brand-300">01 | 09 | 2021</span></p>
+                    <p class="">Enlace: <span class="text-red-brand-500">www.vimeo/video_cocina/.com</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Filtrar tarjetas de video por subcategoría  -->
+        <h1 id="chosen-title-subcateg" class="hidden w-9/12 mx-auto mt-7 text-base font-semibold tracking-wide text-gray-brand-700"></h1>
+        <div id="card-filter-subcategory" class="hidden grid-cols-1 w-9/12 mx-auto mt-4 gap-x-7 gap-y-9 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <!-- Resultado del filtro por categoría "Comida Alemana" -->
+            <div id="filter-subcategory" class="flex flex-col items-center justify-start border shadow h-80 rounded-md border-gray-brand-200 hover:border-blue-brand-500">
+                <div class="flex flex-col relative items-center justify-center h-40 rounded-t-md">
+                    <svg class="absolute top-3 -right-20" width="5" height="17" viewBox="0 0 5 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="2.02381" cy="2.02381" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="8.49988" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="14.9762" r="2.02381" fill="#BABABA"/>
+                    </svg>
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.5">
+                        <path d="M31.6667 5H8.33333C6.49238 5 5 6.49238 5 8.33333V31.6667C5 33.5076 6.49238 35 8.33333 35H31.6667C33.5076 35 35 33.5076 35 31.6667V8.33333C35 6.49238 33.5076 5 31.6667 5Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.1665 16.6666C15.5472 16.6666 16.6665 15.5473 16.6665 14.1666C16.6665 12.7859 15.5472 11.6666 14.1665 11.6666C12.7858 11.6666 11.6665 12.7859 11.6665 14.1666C11.6665 15.5473 12.7858 16.6666 14.1665 16.6666Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M35.0002 25L26.6668 16.6666L8.3335 35" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="px-2 py-2 text-xs font-bold text-gray-brand-700">
+                    <p class="text-blue-brand-500 text-sm mb-2">Preparación de salchicha de puerco</p>
+                    <p class="mb-2">Subido por: <span class="text-gray-brand-300">Sergio Andrade</span></p>
+                    <p class="mb-2">Categoría: <span class="text-gray-brand-300">Comida Mexicana</span></p>
+                    <p class="mb-2">Subcategoría: <span class="text-gray-brand-300">salchicha</span></p>
+                    <p class="mb-2">ID: <span class="text-gray-brand-300">00129111</span></p>
+                    <p class="mb-2">Fecha: <span class="text-gray-brand-300">01 | 05 | 2021</span></p>
+                    <p class="">Enlace: <span class="text-red-brand-500">www.vimeo/video_cocina/.com</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Título de la nueva categoría -->
+        <h1 id="new-title-category" class="hidden w-9/12 mx-auto mt-7 text-base font-semibold tracking-wide text-gray-brand-700"></h1>
+        <!-- tarjetas para agregar videos a las nuevas categorías -->
+        <div id="cards-video-category" class="hidden grid-cols-1 w-9/12 mx-auto mt-4 gap-x-7 gap-y-9 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <!-- tarjeta para agregar video -->
+            <div class="flex flex-col items-center justify-center border shadow h-80 rounded-md border-blue-brand-300 group">
+                <button id="new-video-category" class="py-2 mx-auto border-2 rounded-md w-11 text-blue-brand-300 hover:text-blue-brand-500 hover:border-blue-brand-500 border-blue-brand-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-auto" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </button>
+                <p class="mt-1 text-center text-blue-brand-300"> Agregar Video </p>
+            </div>
+            <!-- tarjeta del primer video agregado a categoría -->
+            <div id="card-video-category" class="hidden flex-col items-center justify-start border shadow h-80 rounded-md border-gray-brand-200 hover:border-blue-brand-500">
+                <div class="flex flex-col relative items-center justify-center h-40 rounded-t-md">
+                    <svg class="absolute top-3 -right-20" width="5" height="17" viewBox="0 0 5 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="2.02381" cy="2.02381" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="8.49988" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="14.9762" r="2.02381" fill="#BABABA"/>
+                    </svg>
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.5">
+                        <path d="M31.6667 5H8.33333C6.49238 5 5 6.49238 5 8.33333V31.6667C5 33.5076 6.49238 35 8.33333 35H31.6667C33.5076 35 35 33.5076 35 31.6667V8.33333C35 6.49238 33.5076 5 31.6667 5Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.1665 16.6666C15.5472 16.6666 16.6665 15.5473 16.6665 14.1666C16.6665 12.7859 15.5472 11.6666 14.1665 11.6666C12.7858 11.6666 11.6665 12.7859 11.6665 14.1666C11.6665 15.5473 12.7858 16.6666 14.1665 16.6666Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M35.0002 25L26.6668 16.6666L8.3335 35" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="px-2 py-2 text-xs font-bold text-gray-brand-700">
+                    <p id="txt-title-video-category" class="text-blue-brand-500 text-sm mb-2"></p>
+                    <p class="mb-2">Subido por: <span class="text-gray-brand-300">Sergio Andrade</span></p>
+                    <p class="mb-2">Categoría: <span id="txt-category-video-category" class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">ID: <span id="txt-id-video-category" class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">Fecha: <span class="text-gray-brand-300">01 | 13 | 2021</span></p>
+                    <p class="">Enlace: <span id="txt-link-video-category" class="text-red-brand-500"></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Área para crear una nueva categoría -->
+        <div id="container-new-category" class="hidden flex-initial w-9/12 mx-auto mt-10">
+            <p class="flex justify-center font-light text-2xl text-gray-brand-700 ">Haz clic para crear una nueva categoría</p>
+            <div class="flex-initial py-8 mx-auto mt-6 border rounded-md border-blue-brand-300">
+                <div class="flex flex-col justify-center w-full">
+                    <button id="add-new-category" class="py-2 mx-auto border-2 rounded-md w-11 text-blue-brand-300 hover:text-blue-brand-500 hover:border-blue-brand-500 border-blue-brand-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-auto" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </button>
+                    <p class="mt-1 text-center text-blue-brand-300"> Crear nueva categoría </p>
+                </div>
+            </div>
+        </div>
+        <!-- Título de la nueva subcategoría -->
+        <h1 id="new-title-subcategory" class="hidden w-9/12 mx-auto mt-7 text-base font-semibold tracking-wide text-gray-brand-700"></h1>
+        <!-- tarjetas para agregar videos a las nuevas subcategorías -->
+        <div id="cards-video-subcategory" class="hidden grid-cols-1 w-9/12 mx-auto mt-4 gap-x-7 gap-y-9 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <!-- tarjeta para agregar video -->
+            <div class="flex flex-col items-center justify-center border shadow h-80 rounded-md border-blue-brand-300 group">
+                <button id="new-video-subcategory" class="py-2 mx-auto border-2 rounded-md w-11 text-blue-brand-300 hover:text-blue-brand-500 hover:border-blue-brand-500 border-blue-brand-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-auto" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                </button>
+                <p class="mt-1 text-center text-blue-brand-300"> Agregar Video </p>
+            </div>
+            <!-- tarjeta del primer video agregado a subcategoría -->
+            <div id="card-video-subcategory" class="hidden flex-col items-center justify-start border shadow h-80 rounded-md border-gray-brand-200 hover:border-blue-brand-500">
+                <div class="flex flex-col relative items-center justify-center h-40 rounded-t-md">
+                    <svg class="absolute top-3 -right-20" width="5" height="17" viewBox="0 0 5 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="2.02381" cy="2.02381" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="8.49988" r="2.02381" fill="#BABABA"/>
+                        <circle cx="2.02381" cy="14.9762" r="2.02381" fill="#BABABA"/>
+                    </svg>
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g opacity="0.5">
+                        <path d="M31.6667 5H8.33333C6.49238 5 5 6.49238 5 8.33333V31.6667C5 33.5076 6.49238 35 8.33333 35H31.6667C33.5076 35 35 33.5076 35 31.6667V8.33333C35 6.49238 33.5076 5 31.6667 5Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.1665 16.6666C15.5472 16.6666 16.6665 15.5473 16.6665 14.1666C16.6665 12.7859 15.5472 11.6666 14.1665 11.6666C12.7858 11.6666 11.6665 12.7859 11.6665 14.1666C11.6665 15.5473 12.7858 16.6666 14.1665 16.6666Z" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M35.0002 25L26.6668 16.6666L8.3335 35" stroke="#162463" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="px-2 py-2 text-xs font-bold text-gray-brand-700">
+                    <p id="txt-title-video-subcategory" class="text-blue-brand-500 text-sm mb-2"></p>
+                    <p class="mb-2">Subido por: <span class="text-gray-brand-300">Sergio Andrade</span></p>
+                    <p class="mb-2">Categoría: <span id="txt-category-video-subcategory" class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">Subcategoría: <span id="txt-subcategory-video-subcategory" class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">ID: <span id="txt-id-video-subcategory" class="text-gray-brand-300"></span></p>
+                    <p class="mb-2">Fecha: <span class="text-gray-brand-300">01 | 13 | 2021</span></p>
+                    <p class="">Enlace: <span id="txt-link-video-subcategory" class="text-red-brand-500"></span></p>
+                </div>
+            </div>
+        </div>
+        <!-- Área para crear una nueva subcategoría -->
+        <div id="container-new-subcategory" class="hidden flex-initial w-9/12 mx-auto mt-8">
+            <p class="flex justify-center font-light text-2xl text-gray-brand-700 ">Haz clic para crear una nueva subcategoría</p>
+            <div class="flex-initial py-8 mx-auto mt-6 border rounded-md border-blue-brand-300">
+                <div class="flex flex-col justify-center w-full">
+                    <button id="add-new-subcategory" class="py-2 mx-auto border-2 rounded-md w-11 text-blue-brand-300 hover:text-blue-brand-500 hover:border-blue-brand-500 border-blue-brand-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-auto" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                    </button>
+                    <p class="mt-1 text-center text-blue-brand-300"> Crear nueva subcategoría </p>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="h-9"></div>
+</div>
+<!-- modal nueva categoría -->
+<div id="new-category-modal" class="modal-container">
+    <div class="w-2/5 py-8 bg-white rounded-md px-7">
+        <!--Title-->
+        <div class="flex justify-between">
+            <p class="text-xl font-semibold text-blue-brand-500">Nueva categoría</p>
+            <button id="exit-new-category-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>  
+            </button>                  
+        </div>
+        <!--Body-->
+        <p class="text-xs font-semibold text-gray-brand-700">Completa los campos a continuación</p>
+        <form id="form-new-category-modal" action="" autocomplete="off">
+            <input id="input-new-category-modal" type="text" placeholder="Ingresa el nombre de la categoría" class="focus:ring-transparent ring-0 focus:border-blue-brand-500 focus:outline-none focus:appearance-none text-blue-brand-500 mt-7 w-full py-2.5 text-sm border border-gray-200 rounded-md"/>
+            <p id="title-new-category-modal" class="text-xs font-normal text-red-700 hidden">* Campo requerido</p>
+        </form>
+        <!--Footer-->
+        <div class="flex justify-end pt-2 mt-12 gap-x-3">
+            <button id="cancel-new-category-modal" class="w-20 h-10 transition duration-200 border rounded-md bg-gray-brand-200 hover:bg-gray-400 hover:border-transparent group">
+                <span class="text-base font-medium text-gray-brand-800 group-hover:text-white">Cancelar</span> 
+            </button>
+            <button id="add-new-category-modal"  class="w-20 h-10 transition duration-200 border border-transparent rounded-md bg-blue-brand-500 hover:bg-red-brand-500 hover:border-gray-brand-200">
+                <span class="text-base font-medium text-white">Agregar</span> 
+            </button>
+        </div>
+    </div>
+</div>
+<!-- modal nueva subcategoría -->
+<div id="new-subcategory-modal" class="modal-container">
+    <div class="w-2/5 py-8 bg-white rounded-md px-7">
+        <!--Title-->
+        <div class="flex justify-between">
+            <p class="text-xl font-semibold text-blue-brand-500">Nueva subcategoría</p>
+            <button id="exit-new-subcategory-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>  
+            </button>                  
+        </div>
+        <!--Body-->
+        <p class="text-xs font-semibold text-gray-brand-700">Completa los campos a continuación</p>
+        <form id="form-new-subcategory-modal" action="" autocomplete="off">
+            <input id="input-new-subcategory-modal" type="text" placeholder="Ingresa el nombre de la subcategoría" class="focus:ring-transparent ring-0 focus:border-blue-brand-500 focus:outline-none focus:appearance-none text-blue-brand-500 mt-7 w-full py-2.5 text-sm border border-gray-200 rounded-md"/>
+            <p id="title-new-subcategory-modal" class="text-xs font-normal text-red-700 hidden">* Campo requerido</p>
+        </form>
+        <!--Footer-->
+        <div class="flex justify-end pt-2 mt-12 gap-x-3">
+            <button id="cancel-new-subcategory-modal" class="w-20 h-10 transition duration-200 border rounded-md bg-gray-brand-200 hover:bg-gray-400 hover:border-transparent group">
+                <span class="text-base font-medium text-gray-brand-800 group-hover:text-white">Cancelar</span> 
+            </button>
+            <button id="add-new-subcategory-modal" class="w-20 h-10 transition duration-200 border border-transparent rounded-md bg-blue-brand-500 hover:bg-red-brand-500 hover:border-gray-brand-200">
+                <span class="text-base font-medium text-white">Agregar</span> 
+            </button>
+        </div>
+    </div>
+</div>
+<!-- modal agregar video a categoría -->
+<div id="add-video-category-modal" class="modal-container">
+    <div class="w-2/5 py-8 bg-white rounded-md px-7">
+        <!--Title-->
+        <div class="flex justify-between">
+            <p class="text-xl font-semibold text-blue-brand-500">Agregar video a categoría</p>
+            <button id="exit-add-video-category-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>  
+            </button>                  
+        </div>
+        <!--Body-->
+        <p class="text-xs font-semibold text-gray-brand-700">Completa los campos a continuación</p>
+        <form id="form-add-video-category-modal" action="" autocomplete="off">
+            <input id="input-id-add-video-category-modal" type="text" placeholder="Ingresa el número de ID" class="focus:ring-transparent ring-0 focus:border-blue-brand-500 focus:outline-none focus:appearance-none text-blue-brand-500 mt-7 w-full py-2.5 text-sm border border-gray-200 rounded-md"/>
+            <p id="id-add-video-category-modal" class="text-xs font-normal text-red-700 hidden">* Campo requerido</p>
+            <input id="input-title-add-video-category-modal" type="text" placeholder="Escribe el título del video" class="focus:ring-transparent ring-0 focus:border-blue-brand-500 focus:outline-none focus:appearance-none text-blue-brand-500 mt-3 w-full py-2.5 text-sm border border-gray-200 rounded-md"/>
+            <p id="title-add-video-category-modal" class="text-xs font-normal text-red-700 hidden">* Campo requerido</p>
+            <input id="input-link-add-video-category-modal" type="text" placeholder="Ingresa el link del video" class="focus:ring-transparent ring-0 focus:border-blue-brand-500 focus:outline-none focus:appearance-none text-blue-brand-500 mt-3 w-full py-2.5 text-sm border border-gray-200 rounded-md"/>
+            <p id="link-add-video-category-modal" class="text-xs font-normal text-red-700 hidden">* Campo requerido</p>
+        </form>
+        <!--Footer-->
+        <div class="flex justify-end pt-2 mt-12 gap-x-3">
+            <button id="cancel-add-video-category-modal" class="w-20 h-10 transition duration-200 border rounded-md bg-gray-brand-200 hover:bg-gray-400 hover:border-transparent group">
+                <span class="text-base font-medium text-gray-brand-800 group-hover:text-white">Cancelar</span> 
+            </button>
+            <button id="add-add-video-category-modal" class="w-20 h-10 transition duration-200 border border-transparent rounded-md bg-blue-brand-500 hover:bg-red-brand-500 hover:border-gray-brand-200">
+                <span class="text-base font-medium text-white">Agregar</span> 
+            </button>
+        </div>
+    </div>
+</div>
+<!-- modal agregar video a subcategoría -->
+<div id="add-video-subcategory-modal" class="modal-container">
+    <div class="w-2/5 py-8 bg-white rounded-md px-7">
+        <!--Title-->
+        <div class="flex justify-between">
+            <p class="text-xl font-semibold text-blue-brand-500">Agregar video a subcategoría</p>
+            <button id="exit-add-video-subcategory-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>  
+            </button>                  
+        </div>
+        <!--Body-->
+        <p class="text-xs font-semibold text-gray-brand-700">Completa los campos a continuación</p>
+        <form id="form-add-video-subcategory-modal" action="" autocomplete="off">
+            <input id="input-id-add-video-subcategory-modal" type="text" placeholder="Ingresa el número de ID" class="focus:ring-transparent ring-0 focus:border-blue-brand-500 focus:outline-none focus:appearance-none text-blue-brand-500 mt-7 w-full py-2.5 text-sm border border-gray-200 rounded-md"/>
+            <p id="id-add-video-subcategory-modal" class="text-xs font-normal text-red-700 hidden">* Campo requerido</p>
+            <input id="input-title-add-video-subcategory-modal" type="text" placeholder="Escribe el título del video" class="focus:ring-transparent ring-0 focus:border-blue-brand-500 focus:outline-none focus:appearance-none text-blue-brand-500 mt-3 w-full py-2.5 text-sm border border-gray-200 rounded-md"/>
+            <p id="title-add-video-subcategory-modal" class="text-xs font-normal text-red-700 hidden">* Campo requerido</p>
+            <input id="input-link-add-video-subcategory-modal" type="text" placeholder="Ingresa el link del video" class="focus:ring-transparent ring-0 focus:border-blue-brand-500 focus:outline-none focus:appearance-none text-blue-brand-500 mt-3 w-full py-2.5 text-sm border border-gray-200 rounded-md"/>
+            <p id="link-add-video-subcategory-modal" class="text-xs font-normal text-red-700 hidden">* Campo requerido</p>
+        </form>
+        <!--Footer-->
+        <div class="flex justify-end pt-2 mt-12 gap-x-3">
+            <button id="cancel-add-video-subcategory-modal" class="w-20 h-10 transition duration-200 border rounded-md bg-gray-brand-200 hover:bg-gray-400 hover:border-transparent group">
+                <span class="text-base font-medium text-gray-brand-800 group-hover:text-white">Cancelar</span> 
+            </button>
+            <button id="add-add-video-subcategory-modal" class="w-20 h-10 transition duration-200 border border-transparent rounded-md bg-blue-brand-500 hover:bg-red-brand-500 hover:border-gray-brand-200">
+                <span class="text-base font-medium text-white">Agregar</span> 
+            </button>
+        </div>
+    </div>
+</div>
+
+<!--Modal para subir un video -->
+<div id="addVideo" class="modal-container">
+    <div class="w-2/5 py-8 bg-white rounded-md px-7">
+        <!--Title-->
+        <div class="flex justify-between">
+            <p class="text-xl font-semibold text-blue-brand-500">Subir un Video</p>
+            <button (click)="btnCloseModal()" id="exit-new-category-modal">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-brand-400 hover:border-red-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>  
+            </button>                  
+        </div>
+        <!--Body-->
+        <p class="text-xs font-semibold text-gray-brand-700">Completa los campos a continuación</p>
+        <form id="form-new-category-modal" action="" autocomplete="off" [formGroup]="formUploadVideo" (ngSubmit)= "handleUploadVideo()">
+            <input id="input-name-video" type="text" placeholder="Nombre del video" formControlName="name" class="focus:ring-transparent ring-0 focus:border-blue-brand-500 focus:outline-none focus:appearance-none text-blue-brand-500 mt-7 w-full py-2.5 text-sm border border-gray-200 rounded-md"/>
+            <div *ngIf="name?.invalid && name?.touched" class="error">
+                <small>Nombre no valido</small>
+            </div>
+            <input id="input-description-video" type="text" placeholder="Descripcion del video" formControlName="description" class="focus:ring-transparent ring-0 focus:border-blue-500 focus:outline-none focus:appearance-none text-blue-brand-500 mt-2 w-full py-2.5 text-sm border border-gray-200 rounded-md"/>
+            <div *ngIf="description?.invalid && description?.touched" class="error">
+                <small>Descripción no valida</small>
+            </div>
+            <label for="file" class="mt-4 mb-3 text-xs font-bold transition duration-500 flex flex-col items-center h-48 mx-auto border border-dashed rounded hover:text-blue-brand-500 group border-gray-brand-300 group-hover:border-blue-brand-500 hover">
+                <h1 class="mt-3 mb-6 text-sm font-medium text-gray-brand-800 group-hover:text-blue-brand-500">Subir archivo</h1>
+                <div *ngIf="!option">
+                    <svg class="fill-current" width="65" height="65" viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0)">
+                        <path d="M51.4582 54.1669H16.2499C7.78461 54.1719 0.733522 47.6773 0.0441696 39.2402C-0.645182 30.8031 5.25815 23.25 13.6119 21.8809C17.457 15.0637 24.6731 10.8431 32.4999 10.8334C37.3803 10.815 42.1211 12.4621 45.9386 15.5027C49.6872 18.4761 52.3522 22.6012 53.5219 27.2406C60.52 28.3159 65.5085 34.6006 64.9674 41.6601C64.4263 48.7196 58.5384 54.1706 51.4582 54.1669ZM32.4999 16.2502C26.6274 16.2571 21.2133 19.4247 18.3299 24.5404L17.0624 26.8127L14.4921 27.2325C8.94083 28.1626 5.02654 33.1889 5.48481 38.7989C5.94307 44.4089 10.6212 48.7334 16.2499 48.7502H51.4582C55.7064 48.7546 59.2409 45.4856 59.5675 41.2499C59.8941 37.0143 56.9027 33.242 52.704 32.595L49.1399 32.0534L48.2678 28.5542C46.4675 21.3143 39.9602 16.2366 32.4999 16.2502ZM36.4269 43.3336H28.5728V35.2086H21.6665L32.4999 24.3752L43.3332 35.2086H36.4269V43.3336Z"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0">
+                        <rect width="65" height="65" fill="white"/>
+                        </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+               <div *ngIf="option">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                </div>
+                <p *ngIf="option" class="mt-6"><span class="text-sm font-medium text-gray-brand-800 group-hover:text-blue-brand-500">El video seleccionado es:</span> {{file}}</p>
+                <p *ngIf="!option" class="mt-6"><span class="text-sm font-medium text-gray-brand-800 group-hover:text-blue-brand-500">Selecciona</span> el video en formato .mp4</p>
+            </label>
+            <input id="file" type="file" hidden (change)="handlePickerVideo($event)" />
+           
+            <!--Footer-->
+            <div class="flex justify-end pt-2 mt-12 gap-x-3">
+                <button (click)="btnCloseModal()" id="cancel-new-category-modal" class="w-20 h-10 transition duration-200 border rounded-md bg-gray-brand-200 hover:bg-gray-400 hover:border-transparent group">
+                    <span class="text-base font-medium text-gray-brand-800 group-hover:text-white">Cancelar</span> 
+                </button>
+                <button type="submit" [disabled]="formUploadVideo.invalid"  id="add-new-category-modal" class="w-20 h-10 transition duration-200 border border-transparent rounded-md bg-blue-brand-500 hover:bg-red-brand-500 hover:border-gray-brand-200">
+                    <span class="text-base font-medium text-white">Agregar</span> 
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!--Modal para mostrar el cargando -->
+<div id="charging" class="modal-container">
+    <div class="flex items-center justify-between w-2/5 py-8 bg-white rounded-md px-7">
+        <p class="text-xl font-semibold text-blue-brand-500"> Cargando</p>
+        <img src="../../../assets/imagenes/cargando.gif">
+    </div>
+</div>
+
+<!-- Modal para mostrar que el video que el archivo seleccionado no es el adecuado -->
+<div id="filing-error" class="modal-container">
+    <div class="bg-red-400  border-t-4 border-red-600 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
+            <div class="flex justify-between ">
+                <div class="flex">
+                    <svg class="flex items-start fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg>     
+                </div>
+                <button (click)="btnFilingError()" class="flex"  id="exit-new-category-modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-brand-400 hover:border-red-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>  
+                </button>
+                
+            </div>
+          <div>
+            <p class="font-bold">Error al seleccionar el archvio</p>
+            <p class="text-sm">Favor de seleccionar un archvio con extension .mp4</p>
+          </div>
+        </div>
+    </div>
+</div>
+
